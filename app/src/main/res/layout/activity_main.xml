@@ -15,14 +15,17 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
-            android:layout_gravity="left"
-            android:layout_width="match_parent"
+            android:layout_width="210dp"
             android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:background="@drawable/background_stroke"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/ic_logo" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -60,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
