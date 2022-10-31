@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.pdf.music"
+        applicationId "com.pdf.music2"
         minSdk 26
         targetSdk 32
         versionCode 1
@@ -45,5 +45,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
-    implementation "com.dmitryborodin:pdfview-android:1.1.0"
+//    implementation "com.dmitryborodin:pdfview-android:1.1.0"
+
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+
+//    implementation 'com.github.manishkummar21:AndroidPdfViewer:1.0'
 }
