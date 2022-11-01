@@ -13,4 +13,5 @@ interface MusicDao {
     @Insert
     fun insert(musicEntity: MusicEntity)
 
+
 }

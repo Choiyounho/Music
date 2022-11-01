@@ -1,6 +1,5 @@
 package com.pdf.music
 
-import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.ContentResolver
@@ -11,13 +10,11 @@ import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.provider.OpenableColumns
-import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
-import java.util.logging.Logger
 
 object PathUtil {
+
     fun getPath(context: Context, uri: Uri): String? {
         if (DocumentsContract.isDocumentUri(context, uri)) {
             if (isExternalStorageDocument(uri)) {
