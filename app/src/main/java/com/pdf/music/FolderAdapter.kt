@@ -7,9 +7,15 @@ import com.pdf.music.databinding.ItemFolderBinding
 import com.pdf.music.db.FolderEntity
 
 class FolderAdapter(
-    private val folders: List<FolderEntity>,
     private val click: (String) -> Unit
 ) : RecyclerView.Adapter<FolderAdapter.FolderViewHolder>() {
+
+    var entities = emptyList<FolderEntity>()
+
+    fun setItems(list: List<FolderEntity>) {
+        entities = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FolderViewHolder {
         return FolderViewHolder(
@@ -18,11 +24,11 @@ class FolderAdapter(
     }
 
     override fun onBindViewHolder(holder: FolderViewHolder, position: Int) {
-        holder.bind(folders[position])
+        holder.bind(entities[position])
     }
 
     override fun getItemCount(): Int {
-        return folders.size
+        return entities.size
     }
 
     inner class FolderViewHolder(

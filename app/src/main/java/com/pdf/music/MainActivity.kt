@@ -11,10 +11,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pdf.music.Converter.bitmapToString
 import com.pdf.music.PathUtil.getPath
 import com.pdf.music.databinding.ActivityMainBinding
 import com.pdf.music.db.AppDatabase
+import com.pdf.music.db.FolderEntity
 import com.pdf.music.db.MusicEntity
 import com.shockwave.pdfium.PdfiumCore
 
@@ -35,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         val pdfium = PdfiumCore(this)
 
+        // https://stackoverflow.com/questions/38828396/generate-thumbnail-of-pdf-in-android
+
         try {
             val fd = contentResolver.openFileDescriptor(it, "r")
             val pdfDocu = pdfium.newDocument(fd)
@@ -47,15 +51,16 @@ class MainActivity : AppCompatActivity() {
             pdfium.closeDocument(pdfDocu)
 
             Thread {
-                db.musicDao().insert(
+                db.musicDao().insertMusic(
                     MusicEntity(
-                        title = "제목",
+                        title = "${it.lastPathSegment}",
                         path = path,
                         folderName = "기본",
                         bitmapToString(bmp)
                     )
                 )
             }.start()
+
         } catch (e: Exception) {
             Log.e("TestT", e.message!!)
         }
@@ -98,6 +103,7 @@ class MainActivity : AppCompatActivity() {
         binding.menuButton.setOnClickListener {
             if (binding.drawerLayout.isDrawerOpen(Gravity.LEFT).not()) {
                 binding.drawerLayout.openDrawer(Gravity.LEFT)
+                binding.drawerLayout.bringToFront()
             } else {
                 binding.drawerLayout.closeDrawer(Gravity.LEFT)
             }
@@ -110,24 +116,49 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        val musicAdapter = MusicAdapter(
+            click = {
+                val intent = Intent(this, DetailActivity::class.java)
+                intent.putExtra("KEY", it.path)
+                startActivity(intent)
+            }
+        )
+
+        binding.musicRecyclerView.adapter = musicAdapter
+        binding.musicRecyclerView.layoutManager = GridLayoutManager(this, 2)
+
         Thread {
             val list = db.musicDao().musics()
             runOnUiThread {
-                val adapter = MusicAdapter(
-                    list,
-                    click = {
-                        val intent = Intent(this, DetailActivity::class.java)
-                        Log.e("TestT", "${it.path}")
-                        intent.putExtra("KEY", it.path)
-                        startActivity(intent)
-                    }
-                )
 
-                binding.musicRecyclerView.adapter = adapter
-                binding.musicRecyclerView.layoutManager = GridLayoutManager(this, 2)
 
-                adapter.notifyDataSetChanged()
+                musicAdapter.setItems(list)
             }
         }.start()
+
+        Thread {
+            val list = mutableListOf<FolderEntity>()
+            list.addAll(db.musicDao().folders())
+
+            val folderAdapter = FolderAdapter(
+                click = {
+                    val musics = db.musicDao().musicsFolder(it)
+
+                    runOnUiThread {
+                        musicAdapter.setItems(musics)
+                    }
+                }
+            )
+
+            runOnUiThread {
+
+                binding.folderRecyclerView.adapter = folderAdapter
+                binding.folderRecyclerView.layoutManager = LinearLayoutManager(this)
+            }
+
+        }.start()
+
+
+
     }
 }

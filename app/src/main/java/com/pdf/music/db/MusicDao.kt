@@ -10,8 +10,16 @@ interface MusicDao {
     @Query("SELECT * from  musicentity")
     fun musics(): List<MusicEntity>
 
-    @Insert
-    fun insert(musicEntity: MusicEntity)
+    @Query("SELECT * from musicentity WHERE folderName = :folder ")
+    fun musicsFolder(folder: String): List<MusicEntity>
 
+    @Query("SELECT * from  folderentity")
+    fun folders(): List<FolderEntity>
+
+    @Insert
+    fun insertMusic(musicEntity: MusicEntity)
+
+    @Insert
+    fun insertFolder(folderEntity: FolderEntity)
 
 }

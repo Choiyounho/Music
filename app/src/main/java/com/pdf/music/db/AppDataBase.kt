@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [MusicEntity::class], version = 1)
-abstract class AppDatabase: RoomDatabase() {
+@Database(entities = [MusicEntity::class, FolderEntity::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun musicDao(): MusicDao
 

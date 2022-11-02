@@ -8,9 +8,15 @@ import com.pdf.music.databinding.ItemMusicBinding
 import com.pdf.music.db.MusicEntity
 
 class MusicAdapter(
-    val list: List<MusicEntity>,
     val click: (MusicEntity) -> Unit
 ) : RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
+
+    var entities = emptyList<MusicEntity>()
+
+    fun setItems(list: List<MusicEntity>) {
+        entities = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
         return MusicViewHolder(
@@ -21,11 +27,11 @@ class MusicAdapter(
     }
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(entities[position])
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return entities.size
     }
 
     inner class MusicViewHolder(
