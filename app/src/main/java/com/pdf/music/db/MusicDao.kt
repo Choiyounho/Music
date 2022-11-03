@@ -1,9 +1,6 @@
 package com.pdf.music.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface MusicDao {
@@ -17,6 +14,9 @@ interface MusicDao {
     @Query("SELECT * from  folderentity")
     fun folders(): List<FolderEntity>
 
+    @Query("SELECT * from bookmarkentity")
+    fun bookmarks(): List<BookmarkEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMusic(musicEntity: MusicEntity)
 
@@ -25,5 +25,8 @@ interface MusicDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBookmark(bookmarkEntity: BookmarkEntity)
+
+    @Delete
+    fun deleteFolder(folderEntity: FolderEntity)
 
 }

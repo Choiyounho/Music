@@ -17,15 +17,28 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        var path = ""
+
         intent.extras?.getString("KEY")?.let {
-            binding.pdf.fromUri(Uri.fromFile(File(it)))
+            path = it
+            val pdf = binding.pdf.fromUri(Uri.fromFile(File(it)))
                 .swipeHorizontal(true)
                 .pageSnap(true)
                 .autoSpacing(true)
                 .pageFling(true)
-                .load()
+
+            intent.extras?.getInt("PAGE")?.let {
+                pdf.defaultPage(it)
+                    .load()
+            } ?: run {
+                pdf.load()
+            }
         } ?: run {
             Toast.makeText(this, "없음", Toast.LENGTH_SHORT).show()
+        }
+
+        intent.extras?.getString("TITLE")?.let {
+            binding.title.text = it
         }
 
         binding.backImage.setOnClickListener {
@@ -34,7 +47,9 @@ class DetailActivity : AppCompatActivity() {
 
         binding.bookmark.setOnClickListener {
             startActivity(
-                Intent(this, BookmarkActivity::class.java)
+                Intent(this, BookmarkActivity::class.java).apply {
+                    putExtra("KEY", path)
+                }
             )
         }
     }
