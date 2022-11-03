@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailActivity">
+    tools:context=".bookmark.BookmarkActivity">
 
     <LinearLayout
         android:id="@+id/toolbar"
@@ -26,24 +26,26 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="제목"
+            android:text="북마크"
             android:textColor="@color/black"
             android:textSize="24dp"
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/bookmark"
+            android:id="@+id/add"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_baseline_bookmark_border_24" />
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_baseline_add_24" />
     </LinearLayout>
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdf"
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bookmarkRecyclerView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

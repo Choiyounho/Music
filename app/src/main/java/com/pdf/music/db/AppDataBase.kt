@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [MusicEntity::class, FolderEntity::class], version = 1)
+@Database(entities = [MusicEntity::class, FolderEntity::class, BookmarkEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun musicDao(): MusicDao
@@ -24,6 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, "music_db")
+                .fallbackToDestructiveMigration()
                 .build()
         }
 

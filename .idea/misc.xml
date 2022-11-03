@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/background_stroke.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_bookmark.xml" value="0.33605072463768115" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.2898550724637681" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2210144927536232" />
+        <entry key="app/src/main/res/layout/dialog_bookmark.xml" value="0.33605072463768115" />
+        <entry key="app/src/main/res/layout/item_bookmark.xml" value="0.33605072463768115" />
         <entry key="app/src/main/res/layout/item_folder.xml" value="0.37907608695652173" />
         <entry key="app/src/main/res/layout/item_music.xml" value="0.31521739130434784" />
       </map>

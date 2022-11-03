@@ -1,9 +1,11 @@
 package com.pdf.music
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.pdf.music.bookmark.BookmarkActivity
 import com.pdf.music.databinding.ActivityDetailBinding
 import java.io.File
 
@@ -28,6 +30,12 @@ class DetailActivity : AppCompatActivity() {
 
         binding.backImage.setOnClickListener {
             finish()
+        }
+
+        binding.bookmark.setOnClickListener {
+            startActivity(
+                Intent(this, BookmarkActivity::class.java)
+            )
         }
     }
 }
